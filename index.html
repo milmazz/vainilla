@@ -92,7 +92,7 @@
 
   /* ── titulares estilo PDF ─────────────────────── */
   /* receta tipográfica compartida: display + caps + tracking de marca */
-  .titulo-xl,.btn,.tab,.card h4,footer .fmark{
+  .titulo-xl,.btn,.tab,.card h3,footer .fmark{
     font-family:var(--display);font-weight:700;
     letter-spacing:var(--tracking);text-transform:uppercase;
   }
@@ -308,7 +308,7 @@
     background:var(--rosa-claro);
     padding:.7rem; /* aire entre la foto y el borde circular */
   }
-  .card h4{font-size:1.02rem;color:var(--negro)}
+  .card h3{font-size:1.02rem;color:var(--negro)}
   .card p{color:var(--gris);font-size:.86rem;margin-top:.4rem}
   .card .precios{
     font-family:var(--display);font-weight:700;
@@ -321,7 +321,7 @@
     display:flex;flex-direction:column;justify-content:center;
     background:var(--rosa-fuerte);border-color:var(--rosa-fuerte);
   }
-  .card-info h4{letter-spacing:.14em}
+  .card-info h3{letter-spacing:.14em}
   .card-info p{color:var(--negro);margin-top:.8rem}
   .cinta{
     background:var(--rosa-claro);border-radius:999px;
@@ -418,7 +418,8 @@
 <!-- ════════════════════════════════════════ -->
 <!-- ══════════ CARTA DIARIA ══════════ -->
 <!-- ════════════════════════════════════════ -->
-<main class="solo-diaria" id="carta-diaria" role="tabpanel" aria-labelledby="tab-diaria">
+<main>
+<div class="solo-diaria" id="carta-diaria" role="tabpanel" aria-labelledby="tab-diaria">
 
   <!-- ── MACARONS (fondo blanco, como el menú) ── -->
   <section class="bloque" id="macarons">
@@ -711,12 +712,12 @@
       </div>
     </div>
   </section>
-</main>
+</div>
 
 <!-- ════════════════════════════════════════ -->
 <!-- ══════════ POR ENCARGO ══════════ -->
 <!-- ════════════════════════════════════════ -->
-<main class="solo-encargo" id="carta-encargo" role="tabpanel" aria-labelledby="tab-encargo">
+<div class="solo-encargo" id="carta-encargo" role="tabpanel" aria-labelledby="tab-encargo">
 
   <!-- ── PÂTISSERIE: tortas por encargo ── -->
   <section class="bloque" id="patisserie">
@@ -730,7 +731,7 @@
             <source type="image/webp" srcset="assets/torta-de-chocolate.webp">
             <img src="assets/torta-de-chocolate.png" alt="Torta de chocolate" loading="lazy" width="800" height="800">
           </picture>
-          <h4>Torta de chocolate</h4>
+          <h3>Torta de chocolate</h3>
           <p>Ponqué húmedo de chocolate, cremoso de chocolate y capita de chocolate.</p>
           <p class="precios">P $20 · M $40</p>
         </div>
@@ -739,7 +740,7 @@
             <source type="image/webp" srcset="assets/torta-de-parchita.webp">
             <img src="assets/torta-de-parchita.png" alt="Torta de parchita" loading="lazy" width="800" height="800">
           </picture>
-          <h4>Torta de parchita</h4>
+          <h3>Torta de parchita</h3>
           <p>Ponqué de parchita, cremoso de parchita y capita de chocolate blanco.</p>
           <p class="precios">P $20 · M $40</p>
         </div>
@@ -748,7 +749,7 @@
             <source type="image/webp" srcset="assets/torta-de-limon.webp">
             <img src="assets/torta-de-limon.png" alt="Torta de limón" loading="lazy" width="800" height="800">
           </picture>
-          <h4>Torta de limón</h4>
+          <h3>Torta de limón</h3>
           <p>Ponqué de limón, cremoso de limón y capita de merengue italiano flameado.</p>
           <p class="precios">P $20 · M $40</p>
         </div>
@@ -757,7 +758,7 @@
             <source type="image/webp" srcset="assets/torta-de-zanahoria.webp">
             <img src="assets/torta-de-zanahoria.png" alt="Torta de zanahoria" loading="lazy" width="800" height="800">
           </picture>
-          <h4>Torta de zanahoria</h4>
+          <h3>Torta de zanahoria</h3>
           <p>Ponqué de zanahoria, crema de queso crema y garrapiñado (esta torta no es rellena).</p>
           <p class="precios">P $25 · M $50</p>
         </div>
@@ -766,12 +767,12 @@
             <source type="image/webp" srcset="assets/torta-de-dulce-de-leche.webp">
             <img src="assets/torta-de-dulce-de-leche.png" alt="Torta de vainilla" loading="lazy" width="800" height="800">
           </picture>
-          <h4>Torta de vainilla</h4>
+          <h3>Torta de vainilla</h3>
           <p>Ponqué de vainilla, topping dulce de leche y suspiros (esta torta no es rellena).</p>
           <p class="precios">P $20 · M $40</p>
         </div>
         <div class="card card-info">
-          <h4>Tamaños</h4>
+          <h3>Tamaños</h3>
           <p><strong>P · Pequeña</strong><br>7 cm de altura × 15 cm de diámetro</p>
           <p><strong>M · Mediana</strong><br>9 cm de altura × 20 cm de diámetro</p>
         </div>
@@ -908,6 +909,7 @@
   </section>
 
   <p class="nota nota-cierre">Las tortas por encargo se piden con mínimo 2 días de anticipación.</p>
+</div>
 </main>
 
 <!-- ══════════ CTA WHATSAPP ══════════ -->
