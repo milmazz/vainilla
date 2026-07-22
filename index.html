@@ -21,11 +21,37 @@
     sustituta gratuita mientras se resuelve la licencia.
   ══════════════════════════════════════════════════════════════
 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<!-- fuentes self-hosted (subsets latinos): sin conexiones externas ni CSS bloqueante -->
+<link rel="preload" href="assets/fonts/karla-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/josefin-sans-700.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+  @font-face{
+    font-family:'Josefin Sans';font-style:normal;font-weight:600;font-display:swap;
+    src:url('assets/fonts/josefin-sans-600.woff2') format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face{
+    font-family:'Josefin Sans';font-style:normal;font-weight:700;font-display:swap;
+    src:url('assets/fonts/josefin-sans-700.woff2') format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face{
+    font-family:'Karla';font-style:italic;font-weight:400;font-display:swap;
+    src:url('assets/fonts/karla-italic-400.woff2') format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face{
+    font-family:'Karla';font-style:normal;font-weight:400;font-display:swap;
+    src:url('assets/fonts/karla-400.woff2') format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face{
+    font-family:'Karla';font-style:normal;font-weight:700;font-display:swap;
+    src:url('assets/fonts/karla-700.woff2') format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
   :root{
     --rosa-fuerte:#F4A7C2;  /* rosa favorito oscuro · bloques y acentos */
     --rosa-claro:#FCE3EB;   /* rosa favorito claro · fondos suaves */
