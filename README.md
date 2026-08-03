@@ -25,7 +25,7 @@ El HTML las referencia con `<picture>`: WebP + fallback PNG para dispositivos vi
 
 ## Deploy
 
-Cloudflare Pages publica la rama `main` automáticamente (sin build, directorio raíz). Los cambios se hacen por PR; los pendientes de contenido se rastrean en el [issue #1](https://github.com/milmazz/vainilla/issues/1).
+Cloudflare Pages publica la rama `main` automáticamente (sin build, directorio raíz). Los cambios se hacen por PR.
 
 Se eligió Cloudflare sobre GitHub Pages por tres cosas que pesan en las conexiones venezolanas: **HTTP/3** (QUIC aguanta la pérdida de paquetes sin bloquear todas las descargas a la vez), **Brotli** y **cabeceras de caché configurables**. GitHub Pages servía todo con `max-age=600` fijo y sin HTTP/3.
 
