@@ -23,6 +23,35 @@ python3 -c "from PIL import Image; im=Image.open('assets/originales/FOTO.png').c
 
 El HTML las referencia con `<picture>`: WebP + fallback PNG para dispositivos viejos.
 
+## Iconos
+
+Hay dos SVG fuente. `favicon.svg` es fiel al logo de Instagram; `assets/favicon-16-32.svg`
+lleva el trazo engrosado porque el del logo (2,3 % del diámetro) mide 0,37 px a 16 px y
+se convierte en una mancha gris. De ellos salen los tres archivos servidos:
+
+```sh
+TMP=$(mktemp -d)
+rsvg-convert -w 16  -h 16  assets/favicon-16-32.svg -o "$TMP/f16.png"
+rsvg-convert -w 32  -h 32  assets/favicon-16-32.svg -o "$TMP/f32.png"
+rsvg-convert -w 180 -h 180 favicon.svg              -o "$TMP/a180.png"
+python3 - "$TMP" <<'PY'
+import sys, os
+from PIL import Image
+tmp = sys.argv[1]
+i16 = Image.open(os.path.join(tmp, "f16.png")).convert("RGBA")
+i32 = Image.open(os.path.join(tmp, "f32.png")).convert("RGBA")
+i32.save("favicon.ico", format="ICO", append_images=[i16], sizes=[(32,32),(16,16)])
+a = Image.open(os.path.join(tmp, "a180.png")).convert("RGBA")
+fondo = Image.new("RGB", a.size, "#1E1E1E")      # opaco: iOS aplica su propia máscara
+fondo.paste(a, mask=a.split()[3])
+fondo.quantize(colors=16, method=Image.FASTOCTREE).save("apple-touch-icon.png", optimize=True)
+PY
+rm -rf "$TMP"
+```
+
+Se usa Pillow y no ImageMagick a propósito: el `convert` de esta máquina es de otra
+arquitectura y aborta con `bad CPU type`. Pillow ya es dependencia de las fotos.
+
 ## Deploy
 
 Cloudflare Pages publica la rama `main` automáticamente (sin build, directorio raíz). Los cambios se hacen por PR.
