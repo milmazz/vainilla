@@ -6,13 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. Everything lives in `index.html` — one `<style>` block, one `<script>` block, no build step, no dependencies, no tests. Preview with `python3 -m http.server`. Deployed by GitHub Pages from `main` (root); every merge to `main` publishes.
 
-**Hard constraint:** customers browse from Venezuela on slow connections and often old devices. Keep the page light (HTML is ~47 KB), keep the WebP + PNG `<picture>` fallbacks, keep `xlink:href` alongside `href` on SVG `<use>`, and don't add heavy JS or external dependencies.
+**Hard constraint:** customers browse from Venezuela on slow connections and often old devices. Keep the page light (HTML is ~49 KB), keep the WebP + PNG `<picture>` fallbacks, keep `xlink:href` alongside `href` on SVG `<use>`, and don't add heavy JS or external dependencies.
 
 ## Architecture
 
-- **Two tab panels** on one page: `<body data-menu="diaria|encargo">` toggles visibility of `.solo-diaria` / `.solo-encargo` (both `<main>` elements and their category navs) via CSS. `setMenu()` / `cambiarMenu()` in the script are the only JS. Deep link: `#encargo`.
+- **Three tab panels** on one page: `<body data-menu="diaria|encargo|minidulces">` toggles visibility of `.solo-diaria` / `.solo-encargo` / `.solo-minidulces` (the tabpanel divs inside the single `<main>`, plus the category navs) via CSS. `setMenu()` / `cambiarMenu()` in the script are the only JS. Deep links: `#encargo`, `#minidulces`.
 - **Sections** are `<section class="bloque" id="...">` with an `<h2 class="titulo-xl">`. Backgrounds alternate between white, `bloque-rosa-claro`, `bloque-rosa` (brunch) and `bloque-negro` (café) — when adding/removing/reordering sections, preserve the alternation so adjacent sections never share a background.
-- **Category navs** (`.cats` inside the sticky selector) must stay in sync with the section ids of each tab. Text is lowercase in markup; CSS uppercases it.
+- **Category navs** (`.cats` inside the sticky selector) must stay in sync with the section ids of each tab. Text is lowercase in markup; CSS uppercases it. The mini dulces tab has no `.cats` nav — it's a single section (`#minidulces`); add one if it ever grows to several sections.
 - **Item patterns**: `.items > .item` rows (name/desc left, price right) for lists; `.cards > .card` for the Pâtisserie photo cards; `.cards-media` (photo circle + `.tabla-precios` dotted-leader rows) for single-product sections (Primavera, Matilda, Cheesecake, Pavlova, Tres leches, Profiteroles, Perritos). Follow the existing pattern when adding products — one product per line, no grouped multi-product rows.
 - **Colors exist only in `:root`** — the base palette plus derived tints (`--negro-70`, `--blanco-65`, `--rosa-velo`, …). Never write raw hex/rgba in rules; add a token if a new tint is needed. Same for typography: the shared display-caps recipe lives in one grouped rule (`.titulo-xl,.btn,.tab,...`).
 - **No inline `style=` attributes** — the codebase was deliberately cleaned of them; use classes.
