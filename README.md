@@ -17,9 +17,11 @@ python3 -m http.server   # → http://localhost:8000
 Los originales (2251 px) viven en `assets/originales/` (fuera del repo). Las versiones web se generan a 800 px:
 
 ```sh
-cwebp -q 82 -m 6 -resize 800 800 assets/originales/FOTO.png -o assets/FOTO.webp
-python3 -c "from PIL import Image; im=Image.open('assets/originales/FOTO.png').convert('RGBA').resize((800,800), Image.LANCZOS); im.quantize(colors=256, method=Image.FASTOCTREE).save('assets/FOTO.png', optimize=True)"
+scripts/generar-fotos.sh matilda pavlova
 ```
+
+Saca el WebP (`cwebp -q 82`) y el PNG de respaldo cuantizado a 256 colores. Acepta
+varios nombres de una vez, con o sin `.png`.
 
 El HTML las referencia con `<picture>`: WebP + fallback PNG para dispositivos viejos.
 
@@ -27,27 +29,16 @@ El HTML las referencia con `<picture>`: WebP + fallback PNG para dispositivos vi
 
 Hay dos SVG fuente. `favicon.svg` es fiel al logo de Instagram; `assets/favicon-16-32.svg`
 lleva el trazo engrosado porque el del logo (2,3 % del diámetro) mide 0,37 px a 16 px y
-se convierte en una mancha gris. De ellos salen los tres archivos servidos:
+se convierte en una mancha gris.
 
 ```sh
-TMP=$(mktemp -d)
-rsvg-convert -w 16  -h 16  assets/favicon-16-32.svg -o "$TMP/f16.png"
-rsvg-convert -w 32  -h 32  assets/favicon-16-32.svg -o "$TMP/f32.png"
-rsvg-convert -w 180 -h 180 favicon.svg              -o "$TMP/a180.png"
-python3 - "$TMP" <<'PY'
-import sys, os
-from PIL import Image
-tmp = sys.argv[1]
-i16 = Image.open(os.path.join(tmp, "f16.png")).convert("RGBA")
-i32 = Image.open(os.path.join(tmp, "f32.png")).convert("RGBA")
-i32.save("favicon.ico", format="ICO", append_images=[i16], sizes=[(32,32),(16,16)])
-a = Image.open(os.path.join(tmp, "a180.png")).convert("RGBA")
-fondo = Image.new("RGB", a.size, "#1E1E1E")      # opaco: iOS aplica su propia máscara
-fondo.paste(a, mask=a.split()[3])
-fondo.quantize(colors=16, method=Image.FASTOCTREE).save("apple-touch-icon.png", optimize=True)
-PY
-rm -rf "$TMP"
+scripts/generar-iconos.sh
 ```
+
+Saca `favicon.ico` (con 16 y 32 dentro, cada uno renderizado a su resolución nativa) y
+`apple-touch-icon.png`. Además comprueba tres cosas y falla si alguna no cuadra: que la
+marca no toque el borde del círculo, que el ICO lleve los dos tamaños y que los cuatro
+archivos no pasen de 4 KB.
 
 Se usa Pillow y no ImageMagick a propósito: el `convert` de esta máquina es de otra
 arquitectura y aborta con `bad CPU type`. Pillow ya es dependencia de las fotos.
