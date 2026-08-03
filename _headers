@@ -1,0 +1,24 @@
+# Cabeceras de caché para Cloudflare Pages.
+# GitHub Pages sirve todo con max-age=600 y no deja configurarlo; aquí sí.
+# Las rutas no se solapan (salvo fuentes/assets) para que no haya ambigüedad
+# si Cloudflare fusiona reglas que coinciden con la misma URL.
+
+# El HTML revalida en cada carga: los cambios de precio de Mafer salen al instante.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# El service worker nunca se cachea, si no las actualizaciones se quedan trabadas.
+/sw.js
+  Cache-Control: no-cache
+
+# Las fuentes no cambian jamás.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Las fotos cambian muy de vez en cuando. Sin hash en el nombre no se puede
+# usar immutable: si Mafer cambia una foto, 30 días es lo máximo que espera.
+/assets/*
+  Cache-Control: public, max-age=2592000
