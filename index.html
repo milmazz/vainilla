@@ -185,11 +185,19 @@
   .cats a:hover{background:var(--rosa-claro);color:var(--frambuesa)}
 
   /* visibilidad por carta activa */
-  .solo-diaria,.solo-encargo{display:none}
+  .solo-diaria,.solo-encargo,.solo-minidulces{display:none}
   body[data-menu="diaria"] .solo-diaria{display:block}
   body[data-menu="encargo"] .solo-encargo{display:block}
+  body[data-menu="minidulces"] .solo-minidulces{display:block}
   body[data-menu="diaria"] .cats.solo-diaria,
   body[data-menu="encargo"] .cats.solo-encargo{display:flex}
+
+  /* con tres pestañas el selector queda justo en pantallas angostas */
+  @media (max-width:430px){
+    .tabs{gap:.35rem}
+    .tab{font-size:.74rem;padding:.6rem .35rem}
+    .tab small{font-size:.56rem}
+  }
 
   /* ═══════════ ESTRUCTURA DE CARTA ═══════════ */
   .bloque{padding:3.2rem 1.5rem;scroll-margin-top:110px}
@@ -391,6 +399,7 @@
   <div class="tabs" role="tablist" aria-label="Elige la carta">
     <button class="tab" id="tab-diaria" role="tab" aria-selected="true" aria-controls="carta-diaria" onclick="cambiarMenu('diaria')">Carta diaria</button>
     <button class="tab" id="tab-encargo" role="tab" aria-selected="false" aria-controls="carta-encargo" onclick="cambiarMenu('encargo')">Tortas<small>bajo pedido</small></button>
+    <button class="tab" id="tab-minidulces" role="tab" aria-selected="false" aria-controls="carta-minidulces" onclick="cambiarMenu('minidulces')">Mini dulces<small>bajo pedido</small></button>
   </div>
   <nav class="cats solo-diaria" aria-label="Secciones carta diaria">
     <a href="#macarons">macarons</a>
@@ -910,6 +919,34 @@
 
   <p class="nota nota-cierre">Las tortas por encargo se piden con mínimo 2 días de anticipación.</p>
 </div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- ══════════ MINI DULCES ══════════ -->
+<!-- ════════════════════════════════════════ -->
+<div class="solo-minidulces" id="carta-minidulces" role="tabpanel" aria-labelledby="tab-minidulces">
+
+  <!-- ── MINI DULCES (blanco) ── -->
+  <section class="bloque" id="minidulces">
+    <div class="bloque-inner">
+      <h2 class="titulo-xl">Mini dulces</h2>
+      <p class="nota-bloque">Bandejas de mini dulces para tus eventos, bajo pedido.</p>
+      <ul class="items">
+        <li class="item"><div class="cuerpo"><p class="nombre">Macarons</p><p class="desc">24 unidades</p></div><span class="precio">$59</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Mini profiteroles</p><p class="desc">30 unidades</p></div><span class="precio">$30</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Mini profiteroles de pistacho</p><p class="desc">30 unidades</p></div><span class="precio">$54</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Mini galletas</p><p class="desc">150 unidades</p></div><span class="precio">$15</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Suspiros</p><p class="desc">25 unidades</p></div><span class="precio">$20</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Pie de limón</p><p class="desc">25 unidades</p></div><span class="precio">$50</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Pie de parchita</p><p class="desc">25 unidades</p></div><span class="precio">$50</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Torta de queso criollo</p><p class="desc">25 unidades</p></div><span class="precio">$18</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Mini brownie</p><p class="desc">25 unidades</p></div><span class="precio">$17</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Polvorosas de almendra</p><p class="desc">25 unidades</p></div><span class="precio">$25</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Alfajores</p><p class="desc">25 unidades</p></div><span class="precio">$16</span></li>
+        <li class="item"><div class="cuerpo"><p class="nombre">Dollies</p><p class="desc">30 unidades</p></div><span class="precio">$18</span></li>
+      </ul>
+    </div>
+  </section>
+</div>
 </main>
 
 <!-- ══════════ CTA WHATSAPP ══════════ -->
@@ -938,16 +975,17 @@
 <script>
   function setMenu(cual){
     document.body.dataset.menu = cual;
-    for(const t of ['diaria','encargo'])
+    for(const t of ['diaria','encargo','minidulces'])
       document.getElementById('tab-'+t).setAttribute('aria-selected', cual===t);
   }
   function cambiarMenu(cual){
     setMenu(cual);
-    history.replaceState(null,'', cual==='encargo' ? '#encargo' : '#');
+    history.replaceState(null,'', cual==='diaria' ? '#' : '#'+cual);
     window.scrollTo({top:document.querySelector('.selector').offsetTop - 4, behavior:'smooth'});
   }
-  // enlace directo a la carta por encargo: sitio.com/#encargo
+  // enlace directo: sitio.com/#encargo · sitio.com/#minidulces
   if(location.hash === '#encargo') setMenu('encargo');
+  if(location.hash === '#minidulces') setMenu('minidulces');
 </script>
 
 </body>
