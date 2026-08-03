@@ -17,13 +17,21 @@
   · Fotos de producto originales de Mafer en assets/ (WebP con
     fallback PNG, 800px); los originales viven en assets/originales/
     fuera del repo.
-  · Brandon Grotesque va primero en el stack; Josefin Sans es la
-    sustituta gratuita mientras se resuelve la licencia.
+  · Brandon Grotesque (Medium 500 / Bold 700) se sirve vía Adobe
+    Fonts con carga asíncrona; Josefin Sans queda como sustituta
+    mientras el kit carga o si falla.
   ══════════════════════════════════════════════════════════════
 -->
-<!-- fuentes self-hosted (subsets latinos): sin conexiones externas ni CSS bloqueante -->
+<!-- fuentes self-hosted (subsets latinos): sin CSS bloqueante -->
 <link rel="preload" href="assets/fonts/karla-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/josefin-sans-700.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Brandon Grotesque (Medium/Bold) vía Adobe Fonts · única conexión externa.
+     Carga asíncrona (media=print → all) para no bloquear el render:
+     la página pinta con Josefin Sans y Brandon entra cuando llega. -->
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/lge4vai.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://use.typekit.net/lge4vai.css"></noscript>
 
 <style>
   @font-face{
@@ -71,7 +79,9 @@
     --blanco-50:rgba(255,255,255,.5);  /* separadores sobre rosa · legal del footer */
     --rosa-velo:rgba(244,167,194,.28); /* separadores sobre fondo negro */
 
-    --display:'Brandon Grotesque','Josefin Sans',sans-serif;
+    /* brandon-grotesque es el nombre del kit de Adobe Fonts (500/700);
+       si no llega, cae en Josefin Sans (600/700 self-hosted) */
+    --display:'brandon-grotesque','Brandon Grotesque','Josefin Sans',sans-serif;
     --texto:'Karla',sans-serif;
     --tracking:.04em;       /* “40 de interletrado” */
   }
@@ -165,7 +175,7 @@
   }
   .tab[aria-selected="true"]{background:var(--negro);color:var(--blanco)}
   .tab small{
-    display:block;font-size:.64rem;font-weight:600;
+    display:block;font-size:.64rem;font-weight:500;
     letter-spacing:.12em;text-transform:none;
     margin-top:.15rem;opacity:.7;
   }
@@ -177,7 +187,7 @@
   }
   .cats::-webkit-scrollbar{display:none}
   .cats a{
-    font-family:var(--display);font-weight:600;
+    font-family:var(--display);font-weight:500;
     letter-spacing:var(--tracking);text-transform:uppercase;
     font-size:.8rem;text-decoration:none;color:var(--gris);
     padding:.3rem .75rem;border-radius:999px;white-space:nowrap;
@@ -242,7 +252,7 @@
   .item + .item{border-top:1.5px dashed var(--rosa-claro)}
   .item .cuerpo{min-width:0}
   .item .nombre{
-    font-family:var(--display);font-weight:600;
+    font-family:var(--display);font-weight:500;
     letter-spacing:.02em;font-size:1.03rem;color:var(--negro);
   }
   .item .desc{color:var(--gris);font-size:.88rem;margin-top:.1rem;max-width:48ch}
@@ -257,7 +267,7 @@
   .lista-simple li{
     display:flex;align-items:baseline;gap:.5rem;
     padding:.42rem 0;
-    font-family:var(--display);font-weight:600;
+    font-family:var(--display);font-weight:500;
     letter-spacing:var(--tracking);text-transform:uppercase;
     font-size:.88rem;color:var(--tinta);
   }
@@ -267,7 +277,7 @@
   /* grupo centrado (sabores + precio única, como GALLETAS) */
   .grupo-centrado{text-align:center;margin-top:1rem}
   .grupo-centrado .sabores{
-    font-family:var(--display);font-weight:600;
+    font-family:var(--display);font-weight:500;
     letter-spacing:.06em;text-transform:uppercase;
     font-size:.95rem;color:var(--tinta);line-height:2;
   }
