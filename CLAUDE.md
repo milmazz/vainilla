@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. Everything lives in `index.html` — one `<style>` block, one `<script>` block, no build step, no dependencies, no tests. The only other served files are `sw.js` (offline cache) and `_headers` (Cloudflare cache policy). Preview with `python3 -m http.server`. Deployed from `main` (root); every merge to `main` publishes.
+Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. Everything lives in `index.html` — one `<style>` block, one `<script>` block, no build step, no dependencies, no tests. The other served files are `sw.js` (offline cache), `_headers` (Cloudflare cache policy) and the favicon set (`favicon.ico`, `favicon.svg`, `apple-touch-icon.png`). Asset generation lives in `scripts/` and is never run at deploy time — the generated files are committed. Preview with `python3 -m http.server`. Deployed from `main` (root); every merge to `main` publishes.
 
 **Hard constraint:** customers browse from Venezuela on slow connections and often old devices. Keep the page light (HTML is ~49 KB), keep the WebP + PNG `<picture>` fallbacks, keep `xlink:href` alongside `href` on SVG `<use>`, and don't add heavy JS or external dependencies. The one allowed external connection is the Adobe Fonts kit (`use.typekit.net/lge4vai.css`) that serves Brandon Grotesque Medium/Bold — loaded async (`media="print"` swap) so it never blocks render; Josefin Sans (self-hosted) is the fallback. Don't add more external origins.
 
@@ -20,9 +20,10 @@ Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. 
 ## Images
 
 - Mafer's originals (2251 px PNG cutouts with alpha, ~3 MB each) live in `assets/originales/`, which is **gitignored** — they exist only on the local machine; never commit them.
-- Web versions in `assets/` are 800×800: WebP (`cwebp -q 82 -m 6 -resize 800 800`) plus a 256-color quantized PNG fallback (Pillow `quantize(colors=256, method=FASTOCTREE)`), referenced via `<picture>` with `loading="lazy"` and `width`/`height` set.
+- Web versions in `assets/` are 800×800: run `scripts/generar-fotos.sh NOMBRE...`, which produces the WebP (`cwebp -q 82`) plus a 256-color quantized PNG fallback. Reference them via `<picture>` with `loading="lazy"` and `width`/`height` set.
 - Photos are transparent cutouts — JPEG is not an option.
 - The tres-leches web asset differs from its original: the pink container tint was removed by color flood-fill (see commit history for the script).
+- Favicons: `scripts/generar-iconos.sh` rebuilds `favicon.ico` and `apple-touch-icon.png` from the two SVG sources. It fails if the mark touches the circle edge, if the ICO loses one of its two sizes, or if the four icon files exceed 4 KB. Both scripts are deterministic — re-running them on unchanged sources reproduces byte-identical output, so they never create spurious diffs.
 
 ## Deploy and caching
 
