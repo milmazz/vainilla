@@ -22,3 +22,15 @@
 # usar immutable: si Mafer cambia una foto, 30 días es lo máximo que espera.
 /assets/*
   Cache-Control: public, max-age=2592000
+
+# Los iconos viven en la raíz y no encajan en ninguna regla de arriba: la regla `/`
+# solo cubre la raíz exacta, no las rutas hijas. Literales, sin comodines, para que
+# no puedan solaparse con nada.
+/favicon.ico
+  Cache-Control: public, max-age=2592000
+
+/favicon.svg
+  Cache-Control: public, max-age=2592000
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=2592000
