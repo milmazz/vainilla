@@ -42,14 +42,29 @@ Parámetros en un `viewBox` de 100 unidades:
 
 | | Fiel | Optimizada |
 |---|---|---|
-| Ancho de la marca | 46 | 60 |
+| Ancho de la marca | 46 | 54 |
 | Grosor de trazo | 2,3 | 8 |
 | Hueco V → subrayado | 4,7 | 8 |
 | Ancho subrayado / V | 0,59 | 0,59 |
 | Destino | 180 px y SVG | 16 y 32 px |
 
-Se probaron también variantes con la marca al 66 %: los brazos de la V chocan con
-el borde del círculo y el conjunto queda apretado. 60 % es el máximo que respira.
+El ancho de la marca optimizada está limitado por el círculo, no por el gusto. Con
+trazo 8, la esquina externa del extremo del brazo de la V queda a esta distancia
+del borde:
+
+| Marca | Margen al borde |
+|---|---|
+| 52 % | 4,41 |
+| 54 % | 3,00 |
+| 56 % | 1,59 |
+| 58 % | 0,18 |
+| 60 % | **−1,23 (se sale)** |
+
+A 58 % y 60 % el círculo sale visiblemente recortado en las puntas. **54 %** es el
+mayor valor con margen real, y a 16 px se sigue leyendo como V subrayada.
+
+Conviene comprobarlo con la geometría, no a ojo: en los renders a 16 px el recorte
+no se aprecia y una primera revisión visual dio por bueno el 60 %.
 
 El subrayado usa el mismo grosor que la V en ambas variantes (en el original difieren
 en 0,4 px, diferencia que no sobrevive a ningún tamaño de favicon).
