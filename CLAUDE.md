@@ -35,7 +35,7 @@ Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. 
 
 ## Workflow and content
 
-- Content decisions come from Mafer (the owner) and are tracked in GitHub issue #1; feedback arrives in rounds. Content is in Spanish; prices use comma decimals (`$2,50`).
+- Content decisions come from Mafer (the owner) and arrive in rounds of feedback. Content is in Spanish; prices use comma decimals (`$2,50`). The original round of pendings was tracked in issue #1, now closed — ask her directly rather than looking for an open tracking issue.
 - Work on a branch, open a PR to `main` with `gh`, merge when the user says so (rebase-merge preferred). Commit style: lowercase imperative summary.
 - The carta diaria deliberately has no photos or product popups — Mafer's decision; don't reintroduce them unless she asks. The old popup/modal code lives in git history.
 - Untracked scratch files in the repo root (`vainilla-*.html`, `menu-*.pdf`) are drafts/sources — leave them untracked.

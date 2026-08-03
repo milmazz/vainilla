@@ -1,6 +1,6 @@
 # Vainilla
 
-Sitio del menú de [Vainilla](https://milmazz.uno/vainilla/), pâtisserie boutique en Mérida, Venezuela — macarons, tortas, brunch y café. Pedidos por WhatsApp.
+Sitio del menú de [Vainilla](https://vainillamacarons.com/), pâtisserie boutique en Mérida, Venezuela — macarons, tortas, brunch y café. Pedidos por WhatsApp.
 
 Una sola página estática (`index.html`, CSS y JS incluidos) con tres cartas en pestañas: **carta diaria**, **tortas bajo pedido** y **mini dulces bajo pedido** (bandejas para eventos). Optimizada para conexiones lentas: ~49 KB de HTML y fotos WebP de ~62 KB con carga diferida.
 
