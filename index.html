@@ -996,6 +996,10 @@
   // enlace directo: sitio.com/#encargo · sitio.com/#minidulces
   if(location.hash === '#encargo') setMenu('encargo');
   if(location.hash === '#minidulces') setMenu('minidulces');
+
+  // caché sin conexión: se registra después de load, nunca bloquea el render
+  if('serviceWorker' in navigator)
+    addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
 </script>
 
 </body>

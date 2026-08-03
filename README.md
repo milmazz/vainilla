@@ -25,4 +25,11 @@ El HTML las referencia con `<picture>`: WebP + fallback PNG para dispositivos vi
 
 ## Deploy
 
-GitHub Pages sirve la rama `main` automáticamente. Los cambios se hacen por PR; los pendientes de contenido se rastrean en el [issue #1](https://github.com/milmazz/vainilla/issues/1).
+Cloudflare Pages publica la rama `main` automáticamente (sin build, directorio raíz). Los cambios se hacen por PR; los pendientes de contenido se rastrean en el [issue #1](https://github.com/milmazz/vainilla/issues/1).
+
+Se eligió Cloudflare sobre GitHub Pages por tres cosas que pesan en las conexiones venezolanas: **HTTP/3** (QUIC aguanta la pérdida de paquetes sin bloquear todas las descargas a la vez), **Brotli** y **cabeceras de caché configurables**. GitHub Pages servía todo con `max-age=600` fijo y sin HTTP/3.
+
+- `_headers` — política de caché: el HTML revalida siempre (los precios salen al instante), las fuentes duran un año, las fotos 30 días.
+- `sw.js` — caché sin conexión: la carta se abre al instante en visitas repetidas y sigue funcionando sin señal, que es justo el caso de alguien en la tienda con mala cobertura.
+
+Si hay que cambiar una foto y que se vea ya, conviene renombrarla (`matilda-2.webp`): una URL nueva se salta las 4 semanas de caché.
