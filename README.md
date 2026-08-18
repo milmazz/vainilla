@@ -43,6 +43,31 @@ archivos no pasen de 4 KB.
 Se usa Pillow y no ImageMagick a propósito: el `convert` de esta máquina es de otra
 arquitectura y aborta con `bad CPU type`. Pillow ya es dependencia de las fotos.
 
+## Imagen para compartir (Open Graph)
+
+`assets/og.png` (1200×630) es la tarjeta que sale al pegar el enlace en WhatsApp, Instagram
+o Messenger: la marca sola, el círculo con la "V" y la rayita, VAINILLA y la bajada. Antes no
+había ninguna y el rastreador escogía por su cuenta la primera foto grande de la carta (la
+torta de chocolate).
+
+```sh
+scripts/generar-og.sh
+```
+
+El diseño vive dentro del script, no en un SVG aparte: los textos se convierten a trazos
+leyendo los subsets de `assets/fonts/`, así que rsvg no depende de las fuentes instaladas y
+el resultado sale igual en cualquier máquina. Ojo con que los subsets son variables (eje
+`wght` 100..700) y su instancia por defecto es la Thin: hay que instanciarlos al peso real
+o la palabra sale en hilo.
+
+Comprueba cuatro cosas y falla si alguna no cuadra: que sea 1200×630, que no lleve
+transparencia (varios rastreadores la componen sobre negro), que toda la marca quepa en el
+cuadrado central de 630 —WhatsApp recorta la vista previa cuando el chat es estrecho— y que
+no pase de 80 KB.
+
+Facebook y WhatsApp cachean la tarjeta por URL. Si cambia el diseño y hace falta que se vea
+ya, hay que renombrarla (`og-2.png`) y actualizar las `og:image` del HTML.
+
 ## Deploy
 
 Cloudflare Pages publica la rama `main` automáticamente (sin build, directorio raíz). Los cambios se hacen por PR.
