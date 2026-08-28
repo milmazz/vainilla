@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Single-page static menu site for Vainilla, a pâtisserie in Mérida, Venezuela. Everything lives in `index.html` — one `<style>` block, one `<script>` block, no build step, no dependencies, no tests. The other served files are `sw.js` (offline cache), `_headers` (Cloudflare cache policy) and the favicon set (`favicon.ico`, `favicon.svg`, `apple-touch-icon.png`). Asset generation lives in `scripts/` and is never run at deploy time — the generated files are committed. Preview with `python3 -m http.server`. Deployed from `main` (root); every merge to `main` publishes.
 
-**Hard constraint:** customers browse from Venezuela on slow connections and often old devices. Keep the page light (HTML is ~49 KB), keep the WebP + PNG `<picture>` fallbacks, keep `xlink:href` alongside `href` on SVG `<use>`, and don't add heavy JS or external dependencies. The one allowed external connection is the Adobe Fonts kit (`use.typekit.net/lge4vai.css`) that serves Brandon Grotesque Medium/Bold — loaded async (`media="print"` swap) so it never blocks render; Josefin Sans (self-hosted) is the fallback. Don't add more external origins.
+**Hard constraint:** customers browse from Venezuela on slow connections and often old devices. Keep the page light, keep the WebP + PNG `<picture>` fallbacks, keep `xlink:href` alongside `href` on SVG `<use>`, and don't add heavy JS or external dependencies. The one allowed external connection is the Adobe Fonts kit (`use.typekit.net/lge4vai.css`) that serves Brandon Grotesque Medium/Bold — loaded async (`media="print"` swap) so it never blocks render; Josefin Sans (self-hosted) is the fallback. Don't add more external origins.
 
 ## Architecture
 
