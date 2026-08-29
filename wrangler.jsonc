@@ -7,6 +7,16 @@
   "name": "vainilla",
   "compatibility_date": "2026-08-28",
 
+  // El sitio se sirve solo en su dominio. Sin esto, la producción queda
+  // además abierta en vainilla.macaronsvainilla-753.workers.dev, que
+  // devolvía la página entera sin cabecera noindex.
+  "workers_dev": false,
+
+  // Pero las URL de preview sí se conservan: dan una dirección por rama
+  // para enseñarle un cambio a Mafer antes de mergear. Hay que declararlo
+  // explícitamente porque su valor por defecto es el de workers_dev.
+  "preview_urls": true,
+
   // Sitio estático puro: no hay código de servidor, por eso no hay "main".
   "assets": {
     "directory": "./",
