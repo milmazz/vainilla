@@ -58,29 +58,26 @@
 <noscript><link rel="stylesheet" href="https://use.typekit.net/lge4vai.css"></noscript>
 
 <style>
+  /* Los woff2 son variables en el eje wght, así que un solo fichero cubre
+     todos los pesos. Antes había un @font-face por peso apuntando a
+     ficheros distintos que resultaban ser idénticos byte a byte
+     (josefin-sans-600 = josefin-sans-700, karla-400 = karla-700): el
+     navegador se bajaba los mismos 53 KB dos veces. Se conservan los dos
+     nombres que ya van en <link rel=preload> y que usa generar-og.sh. */
   @font-face{
-    font-family:'Josefin Sans';font-style:normal;font-weight:600;font-display:swap;
-    src:url('assets/fonts/josefin-sans-600.woff2') format('woff2');
-    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-  @font-face{
-    font-family:'Josefin Sans';font-style:normal;font-weight:700;font-display:swap;
+    font-family:'Josefin Sans';font-style:normal;font-weight:100 700;font-display:swap;
     src:url('assets/fonts/josefin-sans-700.woff2') format('woff2');
     unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
   @font-face{
-    font-family:'Karla';font-style:italic;font-weight:400;font-display:swap;
-    src:url('assets/fonts/karla-italic-400.woff2') format('woff2');
-    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-  @font-face{
-    font-family:'Karla';font-style:normal;font-weight:400;font-display:swap;
+    font-family:'Karla';font-style:normal;font-weight:400 800;font-display:swap;
     src:url('assets/fonts/karla-400.woff2') format('woff2');
     unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
+  /* La cursiva sí es un fichero estático aparte, y solo existe en 400. */
   @font-face{
-    font-family:'Karla';font-style:normal;font-weight:700;font-display:swap;
-    src:url('assets/fonts/karla-700.woff2') format('woff2');
+    font-family:'Karla';font-style:italic;font-weight:400;font-display:swap;
+    src:url('assets/fonts/karla-italic-400.woff2') format('woff2');
     unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
 
