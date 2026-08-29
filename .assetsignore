@@ -1,0 +1,29 @@
+# Lo que NO se publica en vainillamacarons.com.
+#
+# Sintaxis de .gitignore. Sin este fichero Wrangler sube la carpeta entera:
+# el sitio servía /.git/config, /CLAUDE.md y /scripts/*.sh en abierto.
+
+# El repositorio completo, con todo su historial.
+.git/
+
+# Documentación y herramientas internas: nunca son parte del sitio.
+CLAUDE.md
+README.md
+scripts/
+
+# Configuración del despliegue. (_headers y _redirects no hace falta
+# listarlos: Cloudflare los consume y no los sirve.)
+wrangler.jsonc
+.assetsignore
+.gitignore
+
+# Originales de Mafer, ~3 MB cada uno. Están gitignorados, así que no llegan
+# al build, pero sí los cogería un `wrangler deploy` desde la máquina local.
+assets/originales/
+
+# Borradores sueltos que viven en la raíz sin versionar (ver CLAUDE.md).
+vainilla-*.html
+menu-*.pdf
+
+# Basura del sistema.
+.DS_Store
