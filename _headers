@@ -1,7 +1,11 @@
-# Cabeceras de caché para Cloudflare Pages.
-# GitHub Pages sirve todo con max-age=600 y no deja configurarlo; aquí sí.
-# Las rutas no se solapan (salvo fuentes/assets) para que no haya ambigüedad
-# si Cloudflare fusiona reglas que coinciden con la misma URL.
+# Cabeceras de caché. Las lee Cloudflare en el Worker que sirve el sitio;
+# servidas desde cualquier otro sitio, este fichero es texto y no hace nada.
+#
+# Ninguna ruta se solapa con otra. Cloudflare **fusiona** las cabeceras cuando
+# varias reglas coinciden con la misma URL, y el resultado es un Cache-Control
+# con dos max-age pegados que el navegador no sabe interpretar. Por eso las
+# fotos se listan por extensión en vez de con un /assets/* que se tragaría
+# también las fuentes.
 
 # El HTML revalida en cada carga: los cambios de precio de Mafer salen al instante.
 /
@@ -20,7 +24,13 @@
 
 # Las fotos cambian muy de vez en cuando. Sin hash en el nombre no se puede
 # usar immutable: si Mafer cambia una foto, 30 días es lo máximo que espera.
-/assets/*
+/assets/*.webp
+  Cache-Control: public, max-age=2592000
+
+/assets/*.png
+  Cache-Control: public, max-age=2592000
+
+/assets/*.svg
   Cache-Control: public, max-age=2592000
 
 # Los iconos viven en la raíz y no encajan en ninguna regla de arriba: la regla `/`
