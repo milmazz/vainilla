@@ -42,11 +42,19 @@ self.addEventListener('fetch', e => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
-        .then(res => guardar(req, res))
-        .catch(() => caches.match(req).then(guardado => guardado || caches.match('/')))
+        // Un error del servidor (el 404 de un dominio mal apuntado, un 5xx
+        // del origen) llega como fetch resuelto, no como excepción: sin este
+        // control mostraríamos esa página de error teniendo una copia buena.
+        .then(res => res.ok ? guardar(req, res) : respaldo(req).then(guardado => guardado || res))
+        .catch(() => respaldo(req))
     );
   }
 });
+
+// La última copia buena de esta navegación y, si no la hay, la portada.
+function respaldo(req) {
+  return caches.match(req).then(guardado => guardado || caches.match('/'));
+}
 
 function guardar(req, res) {
   if (res && res.ok) {
