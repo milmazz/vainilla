@@ -1,0 +1,30 @@
+// Configuración del Worker que sirve el sitio.
+//
+// Cloudflare lee este fichero en cada build desde GitHub, así que manda sobre
+// lo que haya en el panel: un ajuste hecho ahí a mano se pierde en el
+// siguiente push a main. Se edita aquí, no en el panel.
+{
+  "name": "vainilla",
+  "compatibility_date": "2026-08-28",
+
+  // Sitio estático puro: no hay código de servidor, por eso no hay "main".
+  "assets": {
+    "directory": "./",
+
+    // El comportamiento que ya tenía: /index.html redirige a /.
+    "html_handling": "auto-trailing-slash",
+
+    // Esto no es una SPA. Los enlaces profundos (#encargo, #minidulces) son
+    // fragmentos y nunca llegan al servidor, así que una ruta inexistente
+    // debe dar 404 en vez de devolver la portada.
+    "not_found_handling": "none"
+  },
+
+  // Los dos dominios propios viven aquí para que el panel no sea la fuente de
+  // verdad. Apex y www sirven lo mismo; el <link rel="canonical"> de
+  // index.html apunta al apex.
+  "routes": [
+    { "pattern": "vainillamacarons.com", "custom_domain": true },
+    { "pattern": "www.vainillamacarons.com", "custom_domain": true }
+  ]
+}
